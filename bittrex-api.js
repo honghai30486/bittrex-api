@@ -1,7 +1,4 @@
-var apikey='06c19527fa4746828ae97b55cfd797c7';
-var apisecret ="05880e8a60eb4e8f9cc1668a7c4f402c"
-var apiURL = 'https://bittrex.com/api/v1.1/'
-alert("loaded");
+alert(apikey);
 setTimeout(function(){
 	var s = document.createElement("script");
 	s.type = "text/javascript";
