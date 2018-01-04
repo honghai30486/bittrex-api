@@ -23,7 +23,10 @@ setTimeout(function(){
 		$.each(data.result, function(i, record) {
 			console.log(record.MarketName);
 			console.log(record.Last);
+			result = record.Last;
 		});
+		console.log("result = " + result);
+		return result;
 	});
 	}
 	
