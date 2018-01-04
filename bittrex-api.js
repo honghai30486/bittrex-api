@@ -1,4 +1,6 @@
-alert(apikey);
+console.log(apikey);
+console.log(apisecret);
+console.log(apiURL);
 setTimeout(function(){
 	var s = document.createElement("script");
 	s.type = "text/javascript";
