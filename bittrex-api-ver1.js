@@ -198,3 +198,5 @@ function getdeposithistory(currency, callback)
 	}
 	credentialApiCall('/account/getdeposithistory', options, callback);
 }
+
+console.log("bittrex-api-ver1.js file is loaded");
