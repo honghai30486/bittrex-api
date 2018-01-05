@@ -24,24 +24,24 @@ function load(){
 		buttonCancel.innerHTML = "CANCEL";
 		$(this).append(buttonCancel);
 		buttonCancel.addEventListener("click", function() {
-			cancel(marketName);
+			cancelOrder(marketName);
 		});
 		
 		var buttonSell = document.createElement("button");
 		buttonSell.innerHTML = "SELL";
 		$(this).append(buttonSell);
-		buttonSell.addEventListener ("click", sell);
+		buttonSell.addEventListener ("click", sellOrder);
 	});
 }
 
-function cancel(marketName){
+function cancelOrder(marketName){
 	console.log("Action: CANCEL");
-	getmarketsummary("BTC-"+marketName,function(data){
-		console.log(data)
-	});
+	//getmarketsummary("BTC-"+marketName,function(data){
+	//	console.log(data)
+	//});
 }
 
-function sell(){
+function sellOrder(){
 	console.log("Action: SELL");
 	
 }
