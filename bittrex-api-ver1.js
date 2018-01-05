@@ -20,37 +20,37 @@ function getNonce() {
     return nonce;
 };
 
-function publicApiCall(command,options, callback){
+function publicApiCall(command,options){
 	var uri = apiURL + command + "?";
 	var o = Object.keys(options),i;
     for (i = 0; i < o.length; i++) {
       uri += "&" + o[i] + "=" + options[o[i]];
     }
 	uri = uri.replace("?&", "");
-	var sign = CryptoJS.HmacSHA512(uri, apisecret);
-	$.ajax({
-		url: uri,
-		method: 'GET',
-		success: callback
+	var result
+	$.getJSON(uri, function(data) {
+		//data is the JSON string
+		result = data.result;
 	});
+	return result;
 }
 
 function getmarkets(callback)
 {
 	var options = {	}
-	credentialApiCall('/public/getmarkets', options, callback);
+	return publicApiCall('/public/getmarkets', options, callback);
 }
 
 function getcurrencies(callback)
 {
 	var options = {	}
-	credentialApiCall('/public/getcurrencies', options, callback);
+	publicApiCall('/public/getcurrencies', options, callback);
 }
 
 function getticker(callback)
 {
 	var options = {	}
-	credentialApiCall('/public/getticker', options, callback);
+	publicApiCall('/public/getticker', options, callback);
 }
 
 function getmarketsummary(market, callback)
@@ -58,13 +58,13 @@ function getmarketsummary(market, callback)
 	var options = {	
 		'market':market
 	}
-	credentialApiCall('/public/getmarketsummary', options, callback);
+	publicApiCall('/public/getmarketsummary', options, callback);
 }
 
 function getmarketsummaries(callback)
 {
 	var options = {	}
-	credentialApiCall('/public/getmarketsummaries', options, callback);
+	publicApiCall('/public/getmarketsummaries', options, callback);
 }
 
 function getorderbook(market,type, callback)
@@ -73,7 +73,7 @@ function getorderbook(market,type, callback)
 		'market':market,
 		'type':type
 	}
-	credentialApiCall('/public/getorderbook', options, callback);
+	publicApiCall('/public/getorderbook', options, callback);
 }
 
 function getmarkethistory(market, callback)
@@ -81,7 +81,7 @@ function getmarkethistory(market, callback)
 	var options = {	
 		'market':market
 	}
-	credentialApiCall('/public/getmarkethistory', options, callback);
+	publicApiCall('/public/getmarkethistory', options, callback);
 }
 
 function credentialApiCall(command,options, callback)
