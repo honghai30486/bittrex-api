@@ -36,9 +36,11 @@ function load(){
 
 function cancelOrder(marketName){
 	console.log("Action: CANCEL");
-	//getmarketsummary("BTC-"+marketName,function(data){
-	//	console.log(data)
-	//});
+	getopenorders("BTC-"+marketName,function(data){
+		$.each(data.result, function(i, record) {
+			console.log(record);
+		});
+	});
 }
 
 function sellOrder(){
