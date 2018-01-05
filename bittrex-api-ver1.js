@@ -1,5 +1,3 @@
-//var apikey='574a5202182646fd8251a2c8138a969e';
-//var apisecret ="d965d8ed739a4918b680e59276bc58c7"
 var apiURL = 'https://bittrex.com/api/v1.1'
 var lastNonces = [];
 
@@ -22,26 +20,6 @@ function getNonce() {
     return nonce;
 };
 
-function credentialApiCall(command,options, callback)
-{
-	var uri = apiURL + command + "?apikey=" + apikey+'&nonce=' + getNonce();
-	var o = Object.keys(options),i;
-    for (i = 0; i < o.length; i++) {
-      uri += "&" + o[i] + "=" + options[o[i]];
-    }
-	uri = uri.replace("?&", "");
-	var sign = CryptoJS.HmacSHA512(uri, apisecret);
-	$.ajax({
-		url: uri,
-		headers: {
-			'apisign': sign, 
-			'Content-Type': 'application/json'
-		},
-		method: 'POST',
-		success: callback
-	});
-}
-
 function publicApiCall(command,options, callback){
 	var uri = apiURL + command + "?";
 	var o = Object.keys(options),i;
@@ -61,6 +39,69 @@ function getmarkets(callback)
 {
 	var options = {	}
 	credentialApiCall('/public/getmarkets', options, callback);
+}
+
+function getcurrencies(callback)
+{
+	var options = {	}
+	credentialApiCall('/public/getcurrencies', options, callback);
+}
+
+function getticker(callback)
+{
+	var options = {	}
+	credentialApiCall('/public/getticker', options, callback);
+}
+
+function getmarketsummary(market, callback)
+{
+	var options = {	
+		'market':market
+	}
+	credentialApiCall('/public/getmarketsummary', options, callback);
+}
+
+function getmarketsummaries(callback)
+{
+	var options = {	}
+	credentialApiCall('/public/getmarketsummaries', options, callback);
+}
+
+function getorderbook(market,type, callback)
+{
+	var options = {	
+		'market':market,
+		'type':type
+	}
+	credentialApiCall('/public/getorderbook', options, callback);
+}
+
+function getmarkethistory(market, callback)
+{
+	var options = {	
+		'market':market
+	}
+	credentialApiCall('/public/getmarkethistory', options, callback);
+}
+
+function credentialApiCall(command,options, callback)
+{
+	var uri = apiURL + command + "?apikey=" + apikey+'&nonce=' + getNonce();
+	var o = Object.keys(options),i;
+    for (i = 0; i < o.length; i++) {
+      uri += "&" + o[i] + "=" + options[o[i]];
+    }
+	uri = uri.replace("?&", "");
+	var sign = CryptoJS.HmacSHA512(uri, apisecret);
+	$.ajax({
+		url: uri,
+		headers: {
+			'apisign': sign, 
+			'Content-Type': 'application/json'
+		},
+		method: 'POST',
+		success: callback
+	});
 }
 
 function buylimit(market, callback)
@@ -157,5 +198,3 @@ function getdeposithistory(currency, callback)
 	}
 	credentialApiCall('/account/getdeposithistory', options, callback);
 }
-
-console.log("bittrex-api-ver1 is loaded");
