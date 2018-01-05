@@ -7,7 +7,7 @@ $("head").append(s);
 
 var buttonLoad = document.createElement("button");
 buttonLoad.innerHTML = "TOOL";
-$("#toolbar-balances").append(buttonCancel)
+$("#toolbar-balances").append(buttonLoad)
 buttonLoad.addEventListener ("click", load);
 
 function load(){
