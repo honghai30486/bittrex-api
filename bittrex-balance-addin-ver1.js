@@ -23,7 +23,9 @@ function load(){
 		var buttonCancel = document.createElement("button");
 		buttonCancel.innerHTML = "CANCEL";
 		$(this).append(buttonCancel);
-		buttonCancel.addEventListener ("click", cancel(marketName));
+		buttonCancel.addEventListener("click", function() {
+			cancel(marketName);
+		});
 		
 		var buttonSell = document.createElement("button");
 		buttonSell.innerHTML = "SELL";
