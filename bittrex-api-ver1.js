@@ -1,4 +1,4 @@
-var apiURL = 'https://bittrex.com/api/v1.1'
+var apiURL = 'https://bittrex.com/api/v1.1';
 var lastNonces = [];
 
 var s = document.createElement("script");
