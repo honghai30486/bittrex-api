@@ -1,7 +1,13 @@
-var apikey='574a5202182646fd8251a2c8138a969e';
-var apisecret ="d965d8ed739a4918b680e59276bc58c7"
+//var apikey='574a5202182646fd8251a2c8138a969e';
+//var apisecret ="d965d8ed739a4918b680e59276bc58c7"
 var apiURL = 'https://bittrex.com/api/v1.1'
 var lastNonces = [];
+
+var s = document.createElement("script");
+s.type = "text/javascript";
+s.src = "https://rawgit.com/sytelus/CryptoJS/master/rollups/hmac-sha512.js";
+$("head").append(s);
+
 function getNonce() {
     var nonce = new Date().getTime();
     if (lastNonces.indexOf(nonce) > -1) {
