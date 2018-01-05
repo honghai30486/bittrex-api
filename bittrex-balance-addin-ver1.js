@@ -1,3 +1,5 @@
+console.log("bittrex-balance-addin.js file is loaded");
+
 var s = document.createElement("script");
 s.type = "text/javascript";
 s.src = "https://rawgit.com/honghai30486/bittrex-api/master/bittrex-api-ver1.js";
