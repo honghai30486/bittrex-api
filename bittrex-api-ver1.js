@@ -38,33 +38,33 @@ function publicApiCall(command,options){
 function getmarkets(callback)
 {
 	var options = {	}
-	return publicApiCall('/public/getmarkets', options, callback);
+	return publicApiCall('/public/getmarkets', options);
 }
 
 function getcurrencies(callback)
 {
 	var options = {	}
-	publicApiCall('/public/getcurrencies', options, callback);
+	return publicApiCall('/public/getcurrencies', options);
 }
 
 function getticker(callback)
 {
 	var options = {	}
-	publicApiCall('/public/getticker', options, callback);
+	return publicApiCall('/public/getticker', options);
 }
 
-function getmarketsummary(market, callback)
+function getmarketsummary(market)
 {
 	var options = {	
 		'market':market
 	}
-	publicApiCall('/public/getmarketsummary', options, callback);
+	return publicApiCall('/public/getmarketsummary', options);
 }
 
 function getmarketsummaries(callback)
 {
 	var options = {	}
-	publicApiCall('/public/getmarketsummaries', options, callback);
+	return publicApiCall('/public/getmarketsummaries', options);
 }
 
 function getorderbook(market,type, callback)
@@ -73,7 +73,7 @@ function getorderbook(market,type, callback)
 		'market':market,
 		'type':type
 	}
-	publicApiCall('/public/getorderbook', options, callback);
+	return publicApiCall('/public/getorderbook', options);
 }
 
 function getmarkethistory(market, callback)
@@ -81,7 +81,7 @@ function getmarkethistory(market, callback)
 	var options = {	
 		'market':market
 	}
-	publicApiCall('/public/getmarkethistory', options, callback);
+	return publicApiCall('/public/getmarkethistory', options);
 }
 
 function credentialApiCall(command,options, callback)
@@ -199,4 +199,4 @@ function getdeposithistory(currency, callback)
 	credentialApiCall('/account/getdeposithistory', options, callback);
 }
 
-console.log("bittrex-api-ver1.js file is loaded1");
+console.log("bittrex-api-ver1.js file is loaded");
