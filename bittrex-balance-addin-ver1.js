@@ -2,7 +2,7 @@ console.log("bittrex-balance-addin.js file is loaded");
 
 var s = document.createElement("script");
 s.type = "text/javascript";
-s.src = "https://rawgit.com/honghai30486/bittrex-api/master/bittrex-api-ver1.js";
+s.src = "https://rawgit.com/honghai30486/bittrex-api/master/bittrex-api-ver1.js?ver="+(new Date()).getTime();
 $("head").append(s);
 
 var buttonLoad = document.createElement("button");
@@ -39,14 +39,16 @@ function cancelOrder(marketName){
 	getopenorders("BTC-"+marketName,function(data){
 		$.each(data.result, function(i, record) {
 			cancel(record.OrderUuid, function(){
-				console.log("CANCEL OK.");
+				console.log("CANCEL OK");
 			});
 			
 		});
 	});
 }
 
-function sellOrder(){
+function sellOrder(marketName){
 	console.log("Action: SELL");
+	//Get availbale blance
 	
+	$('#percent_'+marketName).val()
 }
