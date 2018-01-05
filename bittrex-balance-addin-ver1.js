@@ -39,7 +39,7 @@ function cancelOrder(marketName){
 	getopenorders("BTC-"+marketName,function(data){
 		$.each(data.result, function(i, record) {
 			cancel(record.OrderUuid, function(){
-				console.log("CANCEL OK");
+				console.log("CANCEL OK.");
 			});
 			
 		});
