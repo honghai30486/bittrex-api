@@ -26,7 +26,7 @@ function publicApiCall(command,options){
     for (i = 0; i < o.length; i++) {
       uri += "&" + o[i] + "=" + options[o[i]];
     }
-	uri = uri.replace("?&", "");
+	uri = uri.replace("?&", "?");
 	var result
 	$.getJSON(uri, function(data) {
 		//data is the JSON string
