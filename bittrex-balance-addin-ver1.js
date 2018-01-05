@@ -22,12 +22,12 @@ function load(){
 		$(this).append("<select id='percent_"+marketName+"' style='color: black'><option value='30'>30%</option><option value='50'>50%</option><option value='80'>80%</option><option value='100' selected>100%</option></select>");
 		var buttonCancel = document.createElement("button");
 		buttonCancel.innerHTML = "CANCEL";
-		$(this).append(buttonCancel)
-		buttonSell.addEventListener ("click", function(){cancel(marketName)});
+		$(this).append(buttonCancel);
+		buttonCancel.addEventListener ("click", function(){cancel(marketName)});
 		
 		var buttonSell = document.createElement("button");
 		buttonSell.innerHTML = "SELL";
-		$(this).append(buttonSell)
+		$(this).append(buttonSell);
 		buttonSell.addEventListener ("click", sell);
 	});
 }
