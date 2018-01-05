@@ -37,6 +37,7 @@ function load(){
 function cancelOrder(marketName){
 	console.log("Action: CANCEL");
 	getopenorders("BTC-"+marketName,function(data){
+		console.log(data);
 		$.each(data.result, function(i, record) {
 			console.log(record);
 		});
