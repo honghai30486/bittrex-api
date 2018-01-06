@@ -7,6 +7,7 @@ $("head").append(s);
 
 var buttonLoad = document.createElement("button");
 buttonLoad.innerHTML = "TOOL";
+buttonLoad.className = "btn btn-default btn-toolbar";
 $("#toolbar-balances").append(buttonLoad)
 buttonLoad.addEventListener ("click", load);
 
@@ -58,9 +59,14 @@ function sellOrder(marketName){
 			var rate = marketsummary.result[0].Bid + (marketsummary.result[0].Bid*0.2);
 			var percent = $("#percent_"+marketName).val();
 			var quantity = avaribaleBalance * percent/100;
-			selllimit(market,quantity,rate,function(){
-				console.log("SELL OK");
-			})
+			var message =  'Rate       : ' + rate 
+						+'\nQuantity: '+quantity+'(of '+avaribaleBalance + ')'
+						+'\n\nAre you OK?'
+			if(confirm(message)){
+				selllimit(market,quantity,rate,function(){
+					console.log("SELL OK");
+				})
+			}
 		});
 	});
 }
