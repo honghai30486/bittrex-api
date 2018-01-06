@@ -30,7 +30,9 @@ function load(){
 		var buttonSell = document.createElement("button");
 		buttonSell.innerHTML = "SELL";
 		$(this).append(buttonSell);
-		buttonSell.addEventListener ("click", sellOrder);
+		buttonSell.addEventListener ("click", function() {
+			sellOrder(marketName);
+		});
 	});
 }
 
@@ -47,18 +49,18 @@ function cancelOrder(marketName){
 }
 
 function sellOrder(marketName){
+	var market = "BTC-"+marketName;
 	console.log("Action: SELL");
 	//Get marketSummary
 	getbalance(marketName, function(balance){
 		var avaribaleBalance =  balance.result.Available;
-		getmarketsummary("BTC-"+marketName, function(maketsummary){
-			var bid = maketsummary.result.Bid + (maketsummary.result.Bid*0.2);
-			var percent = $("percent_"+marketName).val();
-			var sellAmount = parseInt(marketsummary.result.Available * percent/100);
-			console.log("avaribaleBalance:"+avaribaleBalance);
-			console.log("bid:"+bid);
-			console.log("sellAmount:"+sellAmount);
-		
+		getmarketsummary(market, function(marketsummary){
+			var rate = marketsummary.result[0].Bid + (marketsummary.result[0].Bid*0.2);
+			var percent = $("#percent_"+marketName).val();
+			var quantity = avaribaleBalance * percent/100;
+			selllimit(market,quantity,rate,function(){
+				console.log("SELL OK");
+			})
 		});
 	});
 }
