@@ -114,9 +114,9 @@ function sellAll(){
 				
 				var items = [];
 				var message ='WARNING: SELL ALL. Are you OK?';
-				message +=   '\n--------------------------------------------------------------------------'
-				message +=   '\n|　Currency |  Quantity (xx%)                   |   Rate          | BTC  | Profit |'
-				message +=   '\n--------------------------------------------------------------------------'
+				message +=   '\n---------------------------------------------------------------------------'
+				message +=   '\n|　Currency |  Quantity (xx%)                   |   Rate          | BTC  | Profit  |'
+				message +=   '\n---------------------------------------------------------------------------'
 				$("#balanceTable tbody").find("tr").each(function(){
 					var marketName = $(this).find("a").html();
 					if (marketName === undefined){
@@ -134,12 +134,13 @@ function sellAll(){
 						'Est': priceArray['BTC-'+marketName]*sellrate*quantityArray[marketName]*percent/100,
 						'Profit': ((((priceArray['BTC-'+marketName]*sellrate) - orderArray['BTC-'+marketName])*100/orderArray['BTC-'+marketName]) - 0.25)
 					}
+					sellItem.Profit = sellItem.Profit > 0 ? ("↑" + sellItem.Profit.toFixed(2).padStart(5,'0')): ("↓" + (0-sellItem.Profit).toFixed(2).padStart(5,'0'))
 					items.push(sellItem)
 					console.log(sellItem);
 					message += '\n|　'+convertHaftToFull(marketName)+'    |  '
-					message += sellItem.Quantity.toFixed(6).padStart(16,'0')+ '('+ percent.padStart(3,' ') +'%) | ' + sellItem.Rate.toFixed(8) + ' | ' + sellItem.Est.toFixed(2) + ' | ' +sellItem.Profit.toFixed(2) + ' |';
+					message += sellItem.Quantity.toFixed(6).padStart(16,'0')+ '('+ percent.padStart(3,' ') +'%) | ' + sellItem.Rate.toFixed(8) + ' | ' + sellItem.Est.toFixed(2) + ' | ' +sellItem.Profit + ' |';
 				});
-				message +=   '\n--------------------------------------------------------------------------'
+				message +=   '\n---------------------------------------------------------------------------'
 				
 				if (confirm(message)){
 					$.each(items, function(i, record) {
