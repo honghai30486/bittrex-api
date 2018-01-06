@@ -8,7 +8,7 @@ $("head").append(s);
 var buttonLoad = document.createElement("button");
 buttonLoad.innerHTML = "TOOL";
 buttonLoad.className = "btn btn-default btn-toolbar";
-$("#toolbar-balances").append(buttonLoad)
+$(buttonLoad).insertBefore($('#toolbar-balances').find('[type=button]'));
 buttonLoad.addEventListener ("click", load);
 
 function load(){
@@ -61,8 +61,8 @@ function sellOrder(marketName){
 			var rate = marketsummary.result[0].Bid*sellrate;
 			var percent = $("#percent_"+marketName).val();
 			var quantity = avaribaleBalance * percent/100;
-			var message =  'Rate       : ' + rate 
-						+'\nQuantity: '+quantity+'('+percent+'%)'
+			var message =  'Rate        :  ' + rate 
+						+'\nQuantity :  '+quantity+'  ('+percent+'%)'
 						+'\n\nAre you OK?'
 			if(confirm(message)){
 				selllimit(market,quantity,rate,function(){
