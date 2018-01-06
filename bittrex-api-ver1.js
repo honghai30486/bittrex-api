@@ -31,8 +31,11 @@ function publicApiCall(command,options){
 	$.getJSON(uri, function(data) {
 		//data is the JSON string
 		result = data.result;
+		console.log(data.result);
 	});
+	console.log(result);
 	return result;
+	
 }
 
 function getmarkets(callback)
