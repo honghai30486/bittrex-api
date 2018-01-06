@@ -231,5 +231,5 @@ function convertHaftToFull(input){
 }
 
 $(document).ready(function() {
-    $.notify("Start here", "success");
+    $.notify("Click on button (.)(.) to start.", "info");
 });
