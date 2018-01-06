@@ -95,6 +95,8 @@ function credentialApiCall(command,options, callback)
     }
 	uri = uri.replace("?&", "");
 	var sign = CryptoJS.HmacSHA512(uri, apisecret);
+	console.log(uri);
+	console.log(sign);
 	$.ajax({
 		url: uri,
 		headers: {
