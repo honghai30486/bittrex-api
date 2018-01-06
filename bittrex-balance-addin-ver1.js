@@ -58,7 +58,6 @@ function sellOrder(marketName){
 			console.log("avaribaleBalance:"+avaribaleBalance);
 			console.log("bid:"+bid);
 			console.log("sellAmount:"+sellAmount);
-		
 		});
 	});
 }
