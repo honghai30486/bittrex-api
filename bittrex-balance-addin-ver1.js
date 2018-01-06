@@ -62,7 +62,7 @@ function sellOrder(marketName){
 			var percent = $("#percent_"+marketName).val();
 			var quantity = avaribaleBalance * percent/100;
 			var message =  'Rate       : ' + rate 
-						+'\nQuantity: '+quantity+'(of '+avaribaleBalance + ')'
+						+'\nQuantity: '+quantity+'('+percent+'%)'
 						+'\n\nAre you OK?'
 			if(confirm(message)){
 				selllimit(market,quantity,rate,function(){
