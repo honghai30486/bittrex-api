@@ -20,40 +20,39 @@ function getNonce() {
     return nonce;
 };
 
-function publicApiCall(command,options){
+function publicApiCall(command,options, callback){
 	var uri = apiURL + command + "?";
 	var o = Object.keys(options),i;
     for (i = 0; i < o.length; i++) {
       uri += "&" + o[i] + "=" + options[o[i]];
     }
 	uri = uri.replace("?&", "?");
-	var result
-	$.getJSON(uri, function(data) {
-		//data is the JSON string
-		result = data.result;
-		console.log(data.result);
+	$.ajax({
+		url: uri,
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		method: 'GET',
+		success: callback
 	});
-	console.log(result);
-	return result;
-	
 }
 
 function getmarkets(callback)
 {
 	var options = {	}
-	return publicApiCall('/public/getmarkets', options);
+	publicApiCall('/public/getmarkets', options,callback);
 }
 
 function getcurrencies(callback)
 {
 	var options = {	}
-	return publicApiCall('/public/getcurrencies', options);
+	publicApiCall('/public/getcurrencies', options,callback);
 }
 
 function getticker(callback)
 {
 	var options = {	}
-	return publicApiCall('/public/getticker', options);
+	publicApiCall('/public/getticker', options,callback);
 }
 
 function getmarketsummary(market)
@@ -61,13 +60,13 @@ function getmarketsummary(market)
 	var options = {	
 		'market':market
 	}
-	return publicApiCall('/public/getmarketsummary', options);
+	publicApiCall('/public/getmarketsummary', options,callback);
 }
 
 function getmarketsummaries(callback)
 {
 	var options = {	}
-	return publicApiCall('/public/getmarketsummaries', options);
+	publicApiCall('/public/getmarketsummaries', options,callback);
 }
 
 function getorderbook(market,type, callback)
@@ -76,7 +75,7 @@ function getorderbook(market,type, callback)
 		'market':market,
 		'type':type
 	}
-	return publicApiCall('/public/getorderbook', options);
+	publicApiCall('/public/getorderbook', options,callback);
 }
 
 function getmarkethistory(market, callback)
@@ -84,7 +83,7 @@ function getmarkethistory(market, callback)
 	var options = {	
 		'market':market
 	}
-	return publicApiCall('/public/getmarkethistory', options);
+	publicApiCall('/public/getmarkethistory', options,callback);
 }
 
 function credentialApiCall(command,options, callback)
@@ -115,10 +114,12 @@ function buylimit(market, callback)
 	credentialApiCall('/market/buylimit', options, callback);
 }
 
-function selllimit(market, callback)
+function selllimit(market,quantity,rate,callback)
 {
 	var options = {
-		'market':market
+		'market':market,
+		'quantity': quantity,
+		'rate': rate
 	}
 	credentialApiCall('/market/selllimit', options, callback);
 }
