@@ -5,24 +5,24 @@ s.type = "text/javascript";
 s.src = "https://rawgit.com/honghai30486/bittrex-api/master/bittrex-api-ver1.js?ver="+(new Date()).getTime();
 $("head").append(s);
 
+var buttonAll = document.createElement("button");
+buttonAll.innerHTML = "SELL ALL";
+buttonAll.className = "btn btn-default btn-toolbar";
+$("balanceTable_paginate").append(buttonAll);
+buttonAll.addEventListener ("click", sellAll);
+$(buttonAll).insertBefore($('#toolbar-balances').find('[type=button]'));
+
 var buttonLoad = document.createElement("button");
 buttonLoad.innerHTML = "(.)(.)";
 buttonLoad.className = "btn btn-default btn-toolbar";
 $(buttonLoad).insertBefore($('#toolbar-balances').find('[type=button]'));
 buttonLoad.addEventListener ("click", load);
 
+
+
 function load(){
 	//Check exist
 	if($("#balanceTable tbody").find("select").size() > 0) return;
-	
-	$("#balanceTable thead").find("tr").each(function(){
-		console.log("add sell all")
-		var buttonAll = document.createElement("button");
-		buttonAll.innerHTML = "SELL ALL";
-		$(this).append(buttonAll);
-		buttonAll.addEventListener ("click", sellAll);
-		
-	});
 	
 	$("#balanceTable tbody").find("tr").each(function(){
 		var marketName = $(this).find("a").html();
