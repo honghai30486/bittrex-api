@@ -31,12 +31,6 @@ function load(){
 		if (marketName == "USDT" || marketName == "BTC") return;
 		
 		$(this).append("<select id='percent_"+marketName+"' style='color: black'><option value='30'>30%</option><option value='50'>50%</option><option value='80'>80%</option><option value='100' selected>100%</option></select>");
-		var buttonCancel = document.createElement("button");
-		buttonCancel.innerHTML = "CANCEL";
-		$(this).append(buttonCancel);
-		buttonCancel.addEventListener("click", function() {
-			cancelOrder(marketName);
-		});
 		
 		var buttonSell = document.createElement("button");
 		buttonSell.innerHTML = "SELL";
@@ -44,6 +38,14 @@ function load(){
 		buttonSell.addEventListener ("click", function() {
 			sellOrder(marketName);
 		});
+		
+		var buttonCancel = document.createElement("button");
+		buttonCancel.innerHTML = "CANCEL";
+		$(this).append(buttonCancel);
+		buttonCancel.addEventListener("click", function() {
+			cancelOrder(marketName);
+		});
+	
 	});
 }
 
