@@ -55,7 +55,7 @@ function getticker(callback)
 	publicApiCall('/public/getticker', options,callback);
 }
 
-function getmarketsummary(market)
+function getmarketsummary(market,callback)
 {
 	var options = {	
 		'market':market
