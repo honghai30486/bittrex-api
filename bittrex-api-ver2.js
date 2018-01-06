@@ -3,7 +3,7 @@ var lastNonces = [];
 
 var s = document.createElement("script");
 s.type = "text/javascript";
-s.src = "https://rawgit.com/sytelus/CryptoJS/master/rollups/hmac-sha512.js";
+s.src = "https://rawgit.com/honghai30486/bittrex-api/master/hmac-sha512.js";
 $("head").append(s);
 
 function getNonce() {
