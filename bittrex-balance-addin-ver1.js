@@ -13,7 +13,7 @@ buttonLoad.addEventListener ("click", load);
 
 function load(){
 	//Check exist
-	if($("#balanceTable tbody").find("select").size() != 0) return;
+	if($("#balanceTable tbody").find("select").size() > 0) return;
 	$("#balanceTable tbody").find("tr").each(function(){
 		var marketName = $(this).find("a").html();
 		if (marketName === undefined){
@@ -58,7 +58,7 @@ function sellOrder(marketName){
 	getbalance(marketName, function(balance){
 		var avaribaleBalance =  balance.result.Available;
 		getmarketsummary(market, function(marketsummary){
-			var rate = marketsummary.result[0].Bid + (marketsummary.result[0].Bid*0.2);
+			var rate = marketsummary.result[0].Bid*sellrate;
 			var percent = $("#percent_"+marketName).val();
 			var quantity = avaribaleBalance * percent/100;
 			var message =  'Rate       : ' + rate 
