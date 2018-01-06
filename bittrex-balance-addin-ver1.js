@@ -101,9 +101,8 @@ function sellAll(){
 				
 				var orderArray={};
 				$.each(orderhistories.result, function(i, record) {
-					if (record.OrderType = 'LIMIT_BUY'){
+					if (record.OrderType = 'LIMIT_BUY' && orderArray[record.Exchange] == undefined){
 						orderArray[record.Exchange] = record.PricePerUnit;
-						return false;
 					}
 				});
 				
@@ -115,7 +114,9 @@ function sellAll(){
 				
 				var items = [];
 				var message ='WARNING: SELL ALL. Are you OK?';
-				message += '\n\nCurrency :  Quantity (xx%)                   |   Rate          |  BTC'
+				message +=   '\n--------------------------------------------------------------------------'
+				message +=   '\n|　Currency |  Quantity (xx%)                   |   Rate          | BTC  | Profit |'
+				message +=   '\n--------------------------------------------------------------------------'
 				$("#balanceTable tbody").find("tr").each(function(){
 					var marketName = $(this).find("a").html();
 					if (marketName === undefined){
@@ -135,9 +136,10 @@ function sellAll(){
 					}
 					items.push(sellItem)
 					console.log(sellItem);
-					message += '\n'+convertHaftToFull(marketName)+'    :  '
-					message += sellItem.Quantity.toFixed(6).padStart(16,'0')+ '('+ percent.padStart(3,' ') +'%) | ' + sellItem.Rate.toFixed(8) + ' | ' + sellItem.Est.toFixed(2) + ' | ' +sellItem.Profit.toFixed(3);
+					message += '\n|　'+convertHaftToFull(marketName)+'    |  '
+					message += sellItem.Quantity.toFixed(6).padStart(16,'0')+ '('+ percent.padStart(3,' ') +'%) | ' + sellItem.Rate.toFixed(8) + ' | ' + sellItem.Est.toFixed(2) + ' | ' +sellItem.Profit.toFixed(2) + ' |';
 				});
+				message +=   '\n--------------------------------------------------------------------------'
 				
 				if (confirm(message)){
 					$.each(items, function(i, record) {
