@@ -175,8 +175,11 @@ function getorder(uuid, callback)
 
 function getorderhistory(market,callback)
 {
-	var options = {
-		'market':market
+	var options = {};
+	if (market != "") {
+		var options = {
+			'market':market
+		}
 	}
 	credentialApiCall('/account/getorderhistory', options, callback);
 }
