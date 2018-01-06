@@ -84,6 +84,7 @@ function sellOrder(marketName){
 }
 function sellAll(){
 	console.log("Action: SELL_ALL");
+	load();
 	getbalances(function(balances){
 		getmarketsummaries(function(marketsummaries){
 			getorderhistory("",function(orderhistories){
