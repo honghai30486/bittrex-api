@@ -86,7 +86,7 @@ function sellAll(){
 	console.log("Action: SELL_ALL");
 	getbalances(function(balances){
 		getmarketsummaries(function(marketsummaries){
-			getorderhistory(function(orderhistories){
+			getorderhistory("",function(orderhistories){
 				var priceArray = {};
 				$.each(marketsummaries.result, function(i, record) {
 					priceArray[record.MarketName] = record.Bid
