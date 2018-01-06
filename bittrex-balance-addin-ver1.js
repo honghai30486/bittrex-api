@@ -102,8 +102,8 @@ function sellAll(){
 				var orderArray={};
 				$.each(orderhistories.result, function(i, record) {
 					if (record.OrderType = 'LIMIT_BUY'){
-						orderArray[record.Exchange] = record.PricePerUnit
-						break;
+						orderArray[record.Exchange] = record.PricePerUnit;
+						return false;
 					}
 				});
 				
