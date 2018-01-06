@@ -173,10 +173,10 @@ function getorder(uuid, callback)
 	credentialApiCall('/account/getorder', options, callback);
 }
 
-function getorderhistory(callback)
+function getorderhistory(market,callback)
 {
 	var options = {
-
+		'market':market
 	}
 	credentialApiCall('/account/getorderhistory', options, callback);
 }
