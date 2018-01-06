@@ -18,8 +18,6 @@ buttonLoad.className = "btn btn-default btn-toolbar";
 $(buttonLoad).insertBefore($('#toolbar-balances').find('[type=button]'));
 buttonLoad.addEventListener ("click", load);
 
-
-
 function load(){
 	//Check exist
 	if($("#balanceTable tbody").find("select").size() > 0) return;
@@ -30,7 +28,7 @@ function load(){
 			marketName = $(this).find("td.text").html();
 		}
 		
-		if (marketName == "USDT") return;
+		if (marketName == "USDT" || marketName == "BTC") return;
 		
 		$(this).append("<select id='percent_"+marketName+"' style='color: black'><option value='30'>30%</option><option value='50'>50%</option><option value='80'>80%</option><option value='100' selected>100%</option></select>");
 		var buttonCancel = document.createElement("button");
@@ -84,5 +82,75 @@ function sellOrder(marketName){
 }
 function sellAll(){
 	console.log("Action: SELL_ALL");
-	
+	getbalances(function(balances){
+		getmarketsummaries(function(marketsummaries){
+
+			var priceArray = {};
+			$.each(marketsummaries.result, function(i, record) {
+				priceArray[record.MarketName] = record.Bid
+			});
+			var quantityArray = {};
+			$.each(balances.result, function(i, record) {
+				if (record.Available > 0){
+					quantityArray[record.Currency] = record.Available
+				}
+			});
+			
+			console.log(balances)
+			console.log(marketsummaries)
+			console.log(priceArray)
+			console.log(quantityArray)
+			
+			var items = [];
+			var message ='WARNING: SELL ALL. Are you OK?';
+			message += '\n\nCurrency :  Quantity (xx%)                   |   Rate          |  BTC'
+			$("#balanceTable tbody").find("tr").each(function(){
+				var marketName = $(this).find("a").html();
+				if (marketName === undefined){
+					marketName = $(this).find("td.text").html();
+				}
+				
+				if (marketName == "USDT" || marketName == "BTC") return;
+				
+				var percent = $("#percent_"+marketName).val();
+				
+				var sellItem = {
+					'Currency':marketName,
+					'Quantity':quantityArray[marketName]*percent/100, 
+					'Rate': priceArray['BTC-'+marketName]*sellrate, 
+					'Est': priceArray['BTC-'+marketName]*sellrate*quantityArray[marketName]*percent/100
+				}
+				items.push(sellItem)
+				message += '\n'+convertHaftToFull(marketName)+'    :  '
+				message += sellItem.Quantity.toFixed(6).padStart(16,'0')+ '('+ percent.padStart(3,' ') +'%) | ' + sellItem.Rate.toFixed(8) + ' | ' + sellItem.Est.toFixed(2);
+			});
+			
+			if (confirm(message)){
+				$.each(items, function(i, record) {
+					selllimit("BTC-"+record.Currency,record.Quantity,record.Rate,function(){
+						console.log("SELL BTC-"+record.Currency+" OK");
+					})
+				});
+			}
+		});
+	});
+}
+
+function getObjects(obj, key, val) {
+    var objects = [];
+    for (var i in obj) {
+        if (!obj.hasOwnProperty(i)) continue;
+        if (typeof obj[i] == 'object') {
+            objects = objects.concat(getObjects(obj[i], key, val));
+        } else if (i == key && obj[key] == val) {
+            objects.push(obj);
+        }
+    }
+    return objects;
+}
+
+function convertHaftToFull(input){
+	return input.replace(/[A-Za-z0-9]/g, function(s) {
+		return String.fromCharCode(s.charCodeAt(0) + 0xFEE0);
+	});
 }
