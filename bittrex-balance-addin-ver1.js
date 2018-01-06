@@ -48,7 +48,25 @@ function cancelOrder(marketName){
 
 function sellOrder(marketName){
 	console.log("Action: SELL");
-	//Get availbale blance
+	//Get marketSummary
+	var marketsummary = getmarketsummary("BTC-"+marketName);
+	console.log(marketsummary);
+	return;
+	//Get percent cell
+	var percent = $("percent_"+marketName).val();
+	console.log(percent);
+	
+	
+	if (marketsummary != null){
+		var sellAmount = parseInt(marketsummary.result.Available * percent/100);
+		var rate = marketsummary.res
+		console.log(sellAmount);
+		getbalance(marketName, function(data){
+			// selllimit("BTC-"+marketName,quantity,rate,function(){
+				// console.log("SELL DONE");
+			// });
+		})
+	}
 	
 	$('#percent_'+marketName).val()
 }
