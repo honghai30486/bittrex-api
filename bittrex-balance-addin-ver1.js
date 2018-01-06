@@ -12,6 +12,8 @@ $("#toolbar-balances").append(buttonLoad)
 buttonLoad.addEventListener ("click", load);
 
 function load(){
+	//Check exist
+	if($("#balanceTable tbody").find("select").size() != 0) return;
 	$("#balanceTable tbody").find("tr").each(function(){
 		var marketName = $(this).find("a").html();
 		if (marketName === undefined){
