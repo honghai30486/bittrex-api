@@ -86,54 +86,67 @@ function sellAll(){
 	console.log("Action: SELL_ALL");
 	getbalances(function(balances){
 		getmarketsummaries(function(marketsummaries){
-
-			var priceArray = {};
-			$.each(marketsummaries.result, function(i, record) {
-				priceArray[record.MarketName] = record.Bid
-			});
-			var quantityArray = {};
-			$.each(balances.result, function(i, record) {
-				if (record.Available > 0){
-					quantityArray[record.Currency] = record.Available
-				}
-			});
-			
-			console.log(balances)
-			console.log(marketsummaries)
-			console.log(priceArray)
-			console.log(quantityArray)
-			
-			var items = [];
-			var message ='WARNING: SELL ALL. Are you OK?';
-			message += '\n\nCurrency :  Quantity (xx%)                   |   Rate          |  BTC'
-			$("#balanceTable tbody").find("tr").each(function(){
-				var marketName = $(this).find("a").html();
-				if (marketName === undefined){
-					marketName = $(this).find("td.text").html();
-				}
-				
-				if (marketName == "USDT" || marketName == "BTC") return;
-				
-				var percent = $("#percent_"+marketName).val();
-				
-				var sellItem = {
-					'Currency':marketName,
-					'Quantity':quantityArray[marketName]*percent/100, 
-					'Rate': priceArray['BTC-'+marketName]*sellrate, 
-					'Est': priceArray['BTC-'+marketName]*sellrate*quantityArray[marketName]*percent/100
-				}
-				items.push(sellItem)
-				message += '\n'+convertHaftToFull(marketName)+'    :  '
-				message += sellItem.Quantity.toFixed(6).padStart(16,'0')+ '('+ percent.padStart(3,' ') +'%) | ' + sellItem.Rate.toFixed(8) + ' | ' + sellItem.Est.toFixed(2);
-			});
-			
-			if (confirm(message)){
-				$.each(items, function(i, record) {
-					selllimit("BTC-"+record.Currency,record.Quantity,record.Rate,function(){
-						console.log("SELL BTC-"+record.Currency+" OK");
-					})
+			getorderhistory(function(orderhistories){
+				var priceArray = {};
+				$.each(marketsummaries.result, function(i, record) {
+					priceArray[record.MarketName] = record.Bid
 				});
-			}
+				
+				var quantityArray = {};
+				$.each(balances.result, function(i, record) {
+					if (record.Available > 0){
+						quantityArray[record.Currency] = record.Available
+					}
+				});
+				
+				var orderArray={};
+				$.each(orderhistories.result, function(i, record) {
+					if (record.OrderType = 'LIMIT_BUY'){
+						orderArray[record.Exchange] = record.PricePerUnit
+						break;
+					}
+				});
+				
+				console.log(balances)
+				console.log(marketsummaries)
+				console.log(priceArray)
+				console.log(quantityArray)
+				console.log(orderArray)
+				
+				var items = [];
+				var message ='WARNING: SELL ALL. Are you OK?';
+				message += '\n\nCurrency :  Quantity (xx%)                   |   Rate          |  BTC'
+				$("#balanceTable tbody").find("tr").each(function(){
+					var marketName = $(this).find("a").html();
+					if (marketName === undefined){
+						marketName = $(this).find("td.text").html();
+					}
+					
+					if (marketName == "USDT" || marketName == "BTC") return;
+					
+					var percent = $("#percent_"+marketName).val();
+					
+					var sellItem = {
+						'Currency':marketName,
+						'Quantity':quantityArray[marketName]*percent/100, 
+						'Rate': priceArray['BTC-'+marketName]*sellrate, 
+						'Est': priceArray['BTC-'+marketName]*sellrate*quantityArray[marketName]*percent/100,
+						'Profit': ((((priceArray['BTC-'+marketName]*sellrate) - orderArray['BTC-'+marketName])*100/orderArray['BTC-'+marketName]) - 0.25)
+					}
+					items.push(sellItem)
+					console.log(sellItem);
+					message += '\n'+convertHaftToFull(marketName)+'    :  '
+					message += sellItem.Quantity.toFixed(6).padStart(16,'0')+ '('+ percent.padStart(3,' ') +'%) | ' + sellItem.Rate.toFixed(8) + ' | ' + sellItem.Est.toFixed(2) + ' | ' +sellItem.Profit.toFixed(3);
+				});
+				
+				if (confirm(message)){
+					$.each(items, function(i, record) {
+						selllimit("BTC-"+record.Currency,record.Quantity,record.Rate,function(){
+							console.log("SELL BTC-"+record.Currency+" OK");
+						})
+					});
+				}
+			});
 		});
 	});
 }
