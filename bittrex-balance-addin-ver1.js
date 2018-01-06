@@ -60,5 +60,5 @@ function sellOrder(marketName){
 			console.log("sellAmount:"+sellAmount);
 		
 		});
-	}
+	});
 }
