@@ -193,7 +193,7 @@ function sellAll(flag){
 					{
 						autoHide: false,
 						clickToHide: true,
-						position: 'left top',
+						position: 'left bottom',
 						className:'info'
 					});
 				}else if (confirm(message)){
@@ -207,7 +207,7 @@ function sellAll(flag){
 					{
 						autoHide: false,
 						clickToHide: true,
-						position: 'left top',
+						position: 'left bottom',
 						className:'info'
 					});
 					$.each(items, function(i, record) {
