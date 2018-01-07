@@ -1,13 +1,6 @@
 var bitbankAPI = "https://public.bitbank.cc/";
 
-function tiker(currency, callback){
-	uri += currency + "/ticker";
-	$.ajax({
-		url: uri,
-		headers: {
-			'Content-Type': 'application/json'
-		},
-		method: 'GET',
-		success: callback
-	});
+function b_getticker(currency, callback){
+	var uri = bitbankAPI + currency + "/ticker";
+	$.getJSON(uri, callback);
 }
