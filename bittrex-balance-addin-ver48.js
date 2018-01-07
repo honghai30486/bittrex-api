@@ -151,9 +151,9 @@ function sellAll(flag){
 				var profit = 0;
 				var items = [];
 				var message ='WARNING: SELL ALL. Are you OK?';
-				message +=   '\n-----------------------------------------------------------------------------'
-				message +=   '\n|　Currency |  Quantity (xx%)                    |   Rate          | BTC  | Profit    |'
-				message +=   '\n-----------------------------------------------------------------------------'
+				message +=   '\n------------------------------------------------------------------------------'
+				message +=   '\n|　Currency |  Quantity (xx%)                     |   Rate          | BTC  | Profit    |'
+				message +=   '\n------------------------------------------------------------------------------'
 				$("#balanceTable tbody").find("tr").each(function(){
 					var marketName = $(this).find("a").html();
 					if (marketName === undefined){
@@ -175,18 +175,18 @@ function sellAll(flag){
 					profit += (priceArray['BTC-'+marketName]*sellrate - orderArray['BTC-'+marketName])*quantityArray[marketName];
 					sellItem.Profit = sellItem.Profit > 0 ? ("＋" + sellItem.Profit.toFixed(2).padStart(5,'0')): ("－" + (0-sellItem.Profit).toFixed(2).padStart(5,'0'))
 					items.push(sellItem)
-					message += '\n|　'+convertHaftToFull(marketName.padStart(4,'_'))+'    |  '
-					message += sellItem.Quantity.toFixed(6).padStart(16,'0')+ '('+ percent.padStart(3,' ') +'%) | ' + sellItem.Rate.toFixed(8) + ' | ' + sellItem.Est.toFixed(2) + ' | ' +sellItem.Profit + ' |';
+					message += '\n|　'+convertHaftToFull(marketName.padEnd(4,'＿'))+'    |  '
+					message += sellItem.Quantity.toFixed(6).padStart(16,'0')+ '('+ percent.padStart(3,' ') +'%) | ' + sellItem.Rate.toFixed(8) + ' | ' + sellItem.Est.toFixed(3) + ' | ' +sellItem.Profit + '%|';
 
 				});
-				message +=   '\n-----------------------------------------------------------------------------'
+				message +=   '\n------------------------------------------------------------------------------'
 				message +=   '\n∑PROFIT : ' + profit.toFixed(4) + ' (BTC) ⇒ ' + (profit*priceArray["USDT-BTC"]).toFixed(2) + " (USDT) (>_<)";
 				
 				if (flag){
-					message +=   '\n-----------------------------------------------------------------------------'
+					message +=   '\n------------------------------------------------------------------------------'
 				
 					$.notify(message 
-						+ "\nLocal time-------------: "+ calcTime('+9')
+						+ "\nTokyo Japan----------: "+ calcTime('+9')
 						+ "\nUnited States--------: " + calcTime('-9')
 						+ "\nUnited Kingdom----: " + calcTime('+0')
 						+ "\nChina, Hong Kong--: " + calcTime('+8'),
@@ -200,7 +200,7 @@ function sellAll(flag){
 					message +=   '\n-----------------------------------------------------------------------------'
 				
 					$.notify(message 
-						+ "\nLocal time-------------: "+ calcTime('+9')
+						+ "\nTokyo Japan----------: "+ calcTime('+9')
 						+ "\nUnited States--------: " + calcTime('-9')
 						+ "\nUnited Kingdom----: " + calcTime('+0')
 						+ "\nChina, Hong Kong--: " + calcTime('+8'),
