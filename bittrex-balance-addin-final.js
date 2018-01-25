@@ -197,7 +197,7 @@ function sellAll(flag){
 					message +=   '\n∑PROFIT : ' + profit.toFixed(4) + ' (BTC) ⇒ ' + parseInt(profit*priceArray["USDT-BTC"]).toLocaleString('en-US', {style: 'currency',currency: 'USD',}) + "  ⇒ "+ parseInt(bitbankdata.data.last*profit).toLocaleString('ja-JP', {style: 'currency',currency: 'JPY',});
 					
 					if (flag){
-						message +=  "\nEstimatedValue: "+(estmateValue*0.9975).toFixed(4)+' (BTC) ⇒ '+parseInt(estmateValue*0.9975*priceArray["USDT-BTC"]).toLocaleString('en-US', {style: 'currency',currency: 'USD',})+ "  ⇒ "+ parseInt(bitbankdata.data.last*(estmateValue*0.9975-0.001)).toLocaleString('ja-JP', {style: 'currency',currency: 'JPY',});
+						message +=  "\nEstimatedValue: "+(estmateValue*0.9975).toFixed(4)+' (BTC) ⇒ '+parseInt(estmateValue*0.9975*priceArray["USDT-BTC"]).toLocaleString('en-US', {style: 'currency',currency: 'USD',})+ "  ⇒ "+ parseInt(bitbankdata.data.last*(estmateValue*0.9975-0.001)/10000) + "万円";
 						message +=   '\n------------------------------------------------------------------------------'
 						$.notify(message 
 							+ "\nTokyo Japan----------: "+ calcTime('+9')
